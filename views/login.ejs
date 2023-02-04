@@ -11,7 +11,7 @@
 	<% if (messages.error) { %>
 		<p style="color: red;"><%= messages.error %></p>
 	<% } %>
-	<% if (justRegistered) { %>
+	<% if (registrationRedirect === 'regcomplete') { %>
 		<p style="color: green;">Successfully registered. Please, log in.</p>
 	<% } %>
 	<form action="/login" method="POST">

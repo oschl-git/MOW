@@ -8,13 +8,25 @@
 </head>
 <body>
 	<h1>Editing learning set.</h1>
-	<p id="questions"></p>
+	<main>
+		<!--Questions go here-->
+	</main>
 </body>
+
 <script>
-	let questions = JSON.parse('<%-questions%>');
+	const mainSection = document.getElementsByTagName('main')[0]; 
+	const questions = JSON.parse('<%-questions%>');
+	let iterator = 0;
 	for (const i of questions) {
-		console.log(i);
-		document.getElementById('questions').innerText += i.question + ': ' + i.answer + '\n';
+		let questionDiv = document.createElement('form');
+		questionDiv.setAttribute('action', '/delete/<%=setId%>/' + iterator);
+		questionDiv.setAttribute('method', 'POST');
+		questionDiv.innerHTML = (
+			'<p>' + i.question + ' | ' + i.answer + '</p>' +
+			'<button type="submit">Delete</button>'
+		);
+		mainSection.appendChild(questionDiv);
+		iterator++;
 	}
 </script>
 </html>

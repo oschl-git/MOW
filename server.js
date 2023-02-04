@@ -22,10 +22,6 @@ initializePassport(
 let users = [];
 let learningSets = new Map();
 
-
-let justRegistered = false;
-let registerFailMessage = '';
-
 app.set('view-engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(flash());
@@ -92,17 +88,28 @@ app.get('/', checkAuthenticated, (req, res) => {
 })
 
 app.get('/:id/practice', checkAuthenticated, (req, res) => {
-	res.render('practice.ejs', { questions: JSON.stringify(learningSets.get(req.user.id)[req.params.id].questions) });
+	res.render('practice.ejs', {questions: JSON.stringify(learningSets.get(req.user.id)[req.params.id].questions) });
 })
 
 app.get('/:id/edit', checkAuthenticated, (req, res) => {
-	res.render('edit.ejs', { questions: JSON.stringify(learningSets.get(req.user.id)[req.params.id].questions) });
+	res.render('edit.ejs', {
+		questions: JSON.stringify(learningSets.get(req.user.id)[req.params.id].questions),
+		setId: req.params.id
+	});
 })
 
+app.post('/delete/:setid/:questionid', checkAuthenticated, (req, res) => {
+	learningSets.get(req.user.id)[req.params.setid].questions.splice(req.params.questionid, 1);
+	res.redirect('/' + req.params.setid + '/edit');
+});
+
 app.get('/login', checkNotAuthenticated, (req, res) => {
-	res.render('login.ejs', { justRegistered : justRegistered });
-	justRegistered = false;
-})
+	res.render('login.ejs', { registrationRedirect : false });
+});
+
+app.get('/login/:registrationredirect', checkNotAuthenticated, (req, res) => {
+	res.render('login.ejs', { registrationRedirect : req.params.registrationredirect });
+});
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 	successRedirect: '/',
@@ -111,8 +118,11 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 }));
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
-	res.render('register.ejs', { registerFailMessage: registerFailMessage });
-	registerFailMessage = '';
+	res.render('register.ejs', { registerError: null });
+})
+
+app.get('/register/:registerError', checkNotAuthenticated, (req, res) => {
+	res.render('register.ejs', { registerError: req.params.registerError });
 })
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {
@@ -131,16 +141,15 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
 			password: hashedPassword
 		})
 		justRegistered = true;
-		res.redirect('/login');
+		res.redirect('/login/regcomplete');
 	}
 	catch (error) {
 		if (error.message === 'Username exists') {
-			registerFailMessage = 'A user with this username already exists. Choose a different one.';
+			res.redirect('/register/duplicateuser');
 		}
 		else {
-			registerFailMessage = 'Something went wrong. Please try again.';
+			res.redirect('/register/unknownerror');
 		}
-		res.redirect('/register');
 	}
 });
 

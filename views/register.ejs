@@ -8,9 +8,14 @@
 </head>
 <body>
 	<h1>Register</h1>
-	<% if (registerFailMessage != null) { %>
-		<p style="color: red;"><%=registerFailMessage%></p>
-	<% } %>
+	<% if (registerError != null) { 
+		if (registerError == 'duplicateuser') { %>
+			<p style="color: red;">A user with this username already exists. Please try a different one.</p>
+		<% }
+		else if (registerError == 'unknownerror') { %>
+			<p style="color: red;">Something went wrong. Please try again.</p>
+		<% }
+	} %>
 	<form action="/register" method="POST">
 		<div>
 			<label for="name">Username:</label>
