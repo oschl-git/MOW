@@ -7,9 +7,29 @@
 	<title>Homepage</title>
 </head>
 <body>
-	<h1>Hi <%= name %> !</h1>
+	<h1>Hello, <%= name %>. You can find all your learning sets below.</h1>
+	<main>
+	</main>
 	<form action="/logout?_method=DELETE" method="POST">
 		<button type="submit">Logout!</button>
 	</form>
 </body>
+<script>
+	let jsonString = '<%- sets %>';
+	if (jsonString.length > 0) {
+		let sets = JSON.parse(jsonString);
+		let iterator = 0;
+		for (const i of sets) {
+			const learningSet = document.createElement('div');
+			learningSet.innerHTML = '<p>' + i.name + ' >> ' + i.description + '</p>'
+				+ '<a href=\"/' + iterator +'/edit\">Edit</a><a href=\"/' + iterator +'/practice\">Practice</button>';
+			document.getElementsByTagName('main')[0].appendChild(learningSet);
+			iterator++;
+		}
+	}
+	else {
+		document.getElementsByTagName('main')[0].innerText = 'It seems you don\'t have any learning sets.'
+			+ ' Start by creating one.';
+	}
+</script>
 </html>

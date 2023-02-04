@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config();
 }
 
+// Dependencies:
 const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
@@ -17,7 +18,11 @@ initializePassport(
 	id => users.find(user => user.id === id)
 );
 
-const users = [];
+// User data:
+let users = [];
+let learningSets = new Map();
+
+
 let justRegistered = false;
 let registerFailMessage = '';
 
@@ -36,27 +41,81 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
 
-app.get('/', checkAtuhenticated, (req, res) => {
-	res.render('index.ejs', { name: req.user.username });
+//DEBUG CODE:
+users.push({
+	id: 1,
+	username: 'babyboy',
+	password: '$2b$10$OPhoykTomJLKisH4m1Z.Y.84O7QZhb04h5LBp.HOxE.AJBx877CXS', //baby
 })
 
-app.get('/login', checkNotAtuhenticated, (req, res) => {
+learningSets.set(1, [])
+learningSets.get(1).push({
+	name: 'Periodic table elements',
+	description: 'A set with elements from the periodic table.',
+	questions: [],
+})
+learningSets.get(1).push({
+	name: 'Czech literary authors',
+	description: 'A set with Czech literary authors.',
+	questions: [],
+})
+
+
+learningSets.get(1)[0].questions.push({
+	question: 'Hydrogen',
+	answer: 'H'
+});
+learningSets.get(1)[0].questions.push({
+	question: 'Lithium',
+	answer: 'Li'
+});
+learningSets.get(1)[0].questions.push({
+	question: 'Potassium',
+	answer: 'K'
+});
+learningSets.get(1)[0].questions.push({
+	question: 'Scandium',
+	answer: 'Sc'
+});
+learningSets.get(1)[0].questions.push({
+	question: 'Phosphorus',
+	answer: 'P'
+});
+learningSets.get(1)[0].questions.push({
+	question: 'Platinum',
+	answer: 'Pt'
+});
+
+// Routing:
+app.get('/', checkAuthenticated, (req, res) => {
+	res.render('index.ejs', { name: req.user.username, sets: JSON.stringify(learningSets.get(req.user.id)) });
+})
+
+app.get('/:id/practice', checkAuthenticated, (req, res) => {
+	res.render('practice.ejs', { questions: JSON.stringify(learningSets.get(req.user.id)[req.params.id].questions) });
+})
+
+app.get('/:id/edit', checkAuthenticated, (req, res) => {
+	res.render('edit.ejs', { questions: JSON.stringify(learningSets.get(req.user.id)[req.params.id].questions) });
+})
+
+app.get('/login', checkNotAuthenticated, (req, res) => {
 	res.render('login.ejs', { justRegistered : justRegistered });
 	justRegistered = false;
 })
 
-app.post('/login', checkNotAtuhenticated, passport.authenticate('local', {
+app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 	successRedirect: '/',
 	failureRedirect: '/login',
 	failureFlash: true
 }));
 
-app.get('/register', checkNotAtuhenticated, (req, res) => {
+app.get('/register', checkNotAuthenticated, (req, res) => {
 	res.render('register.ejs', { registerFailMessage: registerFailMessage });
 	registerFailMessage = '';
 })
 
-app.post('/register', checkNotAtuhenticated, async (req, res) => {
+app.post('/register', checkNotAuthenticated, async (req, res) => {
 	try {
 		for (const user of users) {
 			if (user.username === req.body.username)
@@ -94,7 +153,7 @@ app.delete('/logout', (req, res, next) => {
 	});
 });
 
-function checkAtuhenticated(req, res, next) {
+function checkAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
 		return next();
 	}
@@ -103,7 +162,7 @@ function checkAtuhenticated(req, res, next) {
 	}
 }
 
-function checkNotAtuhenticated(req, res, next) {
+function checkNotAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
 		return res.redirect('/');
 	}
