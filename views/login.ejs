@@ -9,7 +9,10 @@
 <body>
 	<h1>Login</h1>
 	<% if (messages.error) { %>
-		<%= messages.error %>
+		<p style="color: red;"><%= messages.error %></p>
+	<% } %>
+	<% if (justRegistered) { %>
+		<p style="color: green;">Successfully registered. Please, log in.</p>
 	<% } %>
 	<form action="/login" method="POST">
 		<div>

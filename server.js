@@ -18,6 +18,8 @@ initializePassport(
 );
 
 const users = [];
+let justRegistered = false;
+let registerFailMessage = '';
 
 app.set('view-engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
@@ -25,6 +27,9 @@ app.use(flash());
 app.use(session({
 	secret: process.env.SESSION_SECRET,
 	resave: false,
+	cookie: {
+		maxAge: 1000 * 60 * 60 *24 * 365
+	},
 	saveUninitialized: false
 }));
 app.use(passport.initialize());
@@ -36,7 +41,8 @@ app.get('/', checkAtuhenticated, (req, res) => {
 })
 
 app.get('/login', checkNotAtuhenticated, (req, res) => {
-	res.render('login.ejs');
+	res.render('login.ejs', { justRegistered : justRegistered });
+	justRegistered = false;
 })
 
 app.post('/login', checkNotAtuhenticated, passport.authenticate('local', {
@@ -46,20 +52,35 @@ app.post('/login', checkNotAtuhenticated, passport.authenticate('local', {
 }));
 
 app.get('/register', checkNotAtuhenticated, (req, res) => {
-	res.render('register.ejs');
+	res.render('register.ejs', { registerFailMessage: registerFailMessage });
+	registerFailMessage = '';
 })
 
 app.post('/register', checkNotAtuhenticated, async (req, res) => {
 	try {
+		for (const user of users) {
+			if (user.username === req.body.username)
+			{
+				throw new Error('Username exists');
+			}
+		}
+
 		const hashedPassword = await bcrypt.hash(req.body.password, 10);
 		users.push({
 			id: Date.now().toString(),
 			username: req.body.username,
 			password: hashedPassword
 		})
+		justRegistered = true;
 		res.redirect('/login');
 	}
-	catch {
+	catch (error) {
+		if (error.message === 'Username exists') {
+			registerFailMessage = 'A user with this username already exists. Choose a different one.';
+		}
+		else {
+			registerFailMessage = 'Something went wrong. Please try again.';
+		}
 		res.redirect('/register');
 	}
 });

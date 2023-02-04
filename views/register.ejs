@@ -8,6 +8,9 @@
 </head>
 <body>
 	<h1>Register</h1>
+	<% if (registerFailMessage != null) { %>
+		<p style="color: red;"><%=registerFailMessage%></p>
+	<% } %>
 	<form action="/register" method="POST">
 		<div>
 			<label for="name">Username:</label>
