@@ -98,9 +98,31 @@ app.get('/:id/edit', checkAuthenticated, (req, res) => {
 	});
 })
 
-app.post('/delete/:setid/:questionid', checkAuthenticated, (req, res) => {
+app.post('/deletequestion/:setid/:questionid', checkAuthenticated, (req, res) => {
 	learningSets.get(req.user.id)[req.params.setid].questions.splice(req.params.questionid, 1);
 	res.redirect('/' + req.params.setid + '/edit');
+});
+
+app.post('/addquestion/:setid/', checkAuthenticated, (req, res) => {
+	learningSets.get(req.user.id)[req.params.setid].questions.push({
+		question: req.body.question,
+		answer: req.body.answer
+	});
+	res.redirect('/' + req.params.setid + '/edit');
+});
+
+app.post('/deleteset/:setid/', checkAuthenticated, (req, res) => {
+	learningSets.get(req.user.id).splice(req.params.setid, 1);
+	res.redirect('/');
+});
+
+app.post('/addset', checkAuthenticated, (req, res) => {
+	learningSets.get(req.user.id).push({
+		name: req.body.name,
+		description: req.body.description,
+		questions: [],
+	})
+	res.redirect('/');
 });
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -135,11 +157,13 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
 		}
 
 		const hashedPassword = await bcrypt.hash(req.body.password, 10);
+		const userId = Date.now().toString();
 		users.push({
-			id: Date.now().toString(),
+			id: userId,
 			username: req.body.username,
 			password: hashedPassword
 		})
+		learningSets.set(userId, [])
 		justRegistered = true;
 		res.redirect('/login/regcomplete');
 	}

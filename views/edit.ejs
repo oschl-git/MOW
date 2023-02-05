@@ -11,22 +11,31 @@
 	<main>
 		<!--Questions go here-->
 	</main>
+	<br>
+	<p>Add question:</p>
+	<form action="/addquestion/<%=setId%>" method="POST">
+		<label for="question">Question:</label>
+		<input type="text" name="question">
+		<label for="answer">Answer:</label>
+		<input type="text" name="answer">
+		<button type="submit">Submit</button>
+	</form>
 </body>
 
 <script>
 	const mainSection = document.getElementsByTagName('main')[0]; 
 	const questions = JSON.parse('<%-questions%>');
-	let iterator = 0;
+	let question = 0;
 	for (const i of questions) {
 		let questionDiv = document.createElement('form');
-		questionDiv.setAttribute('action', '/delete/<%=setId%>/' + iterator);
+		questionDiv.setAttribute('action', '/deletequestion/<%=setId%>/' + question);
 		questionDiv.setAttribute('method', 'POST');
 		questionDiv.innerHTML = (
 			'<p>' + i.question + ' | ' + i.answer + '</p>' +
 			'<button type="submit">Delete</button>'
 		);
 		mainSection.appendChild(questionDiv);
-		iterator++;
+		question++;
 	}
 </script>
 </html>

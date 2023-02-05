@@ -10,6 +10,14 @@
 	<h1>Hello, <%= name %>. You can find all your learning sets below.</h1>
 	<main>
 	</main>
+	<form action="/addset" method="POST">
+		<label for="question">Name:</label>
+		<input type="text" name="name">
+		<label for="answer">Description:</label>
+		<input type="text" name="description">
+		<button type="submit">Submit</button>
+	</form>
+	<br>
 	<form action="/logout?_method=DELETE" method="POST">
 		<button type="submit">Logout!</button>
 	</form>
@@ -18,13 +26,18 @@
 	let jsonString = '<%- sets %>';
 	if (jsonString.length > 0) {
 		let sets = JSON.parse(jsonString);
-		let iterator = 0;
+		let set = 0;
 		for (const i of sets) {
-			const learningSet = document.createElement('div');
-			learningSet.innerHTML = '<p>' + i.name + ' >> ' + i.description + '</p>'
-				+ '<a href=\"/' + iterator +'/edit\">Edit</a><a href=\"/' + iterator +'/practice\">Practice</button>';
+			const learningSet = document.createElement('form');
+			learningSet.setAttribute('action', '/deleteset/' + set);
+			learningSet.setAttribute('method', 'POST');
+			learningSet.innerHTML = (
+				'<p>' + i.name + ' >> ' + i.description + '</p>' +
+				'<a href=\"/' + set +'/edit\">Edit</a><a href=\"/' + set +'/practice\">Practice</button>' +
+				'<button type="submit">Delete</button>'
+			);
 			document.getElementsByTagName('main')[0].appendChild(learningSet);
-			iterator++;
+			set++;
 		}
 	}
 	else {
