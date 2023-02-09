@@ -10,6 +10,7 @@ const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const debugData = require('./debug_data');
 
 const initializePassport = require('./passport-config');
 initializePassport(
@@ -29,58 +30,16 @@ app.use(session({
 	secret: process.env.SESSION_SECRET,
 	resave: false,
 	cookie: {
-		maxAge: 1000 * 60 * 60 *24 * 365
+		maxAge: 1000 * 60 * 60 * 24 * 365
 	},
 	saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
+app.use(express.static('public'));
 
-//DEBUG CODE:
-users.push({
-	id: 1,
-	username: 'babyboy',
-	password: '$2b$10$OPhoykTomJLKisH4m1Z.Y.84O7QZhb04h5LBp.HOxE.AJBx877CXS', //baby
-})
-
-learningSets.set(1, [])
-learningSets.get(1).push({
-	name: 'Periodic table elements',
-	description: 'A set with elements from the periodic table.',
-	questions: [],
-})
-learningSets.get(1).push({
-	name: 'Czech literary authors',
-	description: 'A set with Czech literary authors.',
-	questions: [],
-})
-
-
-learningSets.get(1)[0].questions.push({
-	question: 'Hydrogen',
-	answer: 'H'
-});
-learningSets.get(1)[0].questions.push({
-	question: 'Lithium',
-	answer: 'Li'
-});
-learningSets.get(1)[0].questions.push({
-	question: 'Potassium',
-	answer: 'K'
-});
-learningSets.get(1)[0].questions.push({
-	question: 'Scandium',
-	answer: 'Sc'
-});
-learningSets.get(1)[0].questions.push({
-	question: 'Phosphorus',
-	answer: 'P'
-});
-learningSets.get(1)[0].questions.push({
-	question: 'Platinum',
-	answer: 'Pt'
-});
+debugData.fillWithDebugData(users, learningSets);
 
 // Routing:
 app.get('/', checkAuthenticated, (req, res) => {
