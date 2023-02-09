@@ -1,4 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 html {
 	background-color: black;
 	color: white;
+	font-family: 'Rubik', sans-serif;
+	font-weight: 400;
+	font-size: 18px;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+main {
+	text-align: center;
+	width: 22rem;
+}
+
+#authentication-container, #link-container {
+	background-color: #131e26;
+}
+
+#message-container {
+	padding: 1rem;
+	display: none;
+}
+
+#authentication-container {
+	padding: 40px 0;
+	margin: 20px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: #207c76 solid 3px;
+}
+
+#link-container {
+	padding: 1rem;
+	border: #a85062 solid 3px;
+}
+
+#message-container.success-message {
+	background-color: #0e4816;
+	display: block;
+}
+
+#message-container.error-message {
+	background-color: #7d130f;
+	display: block;
+}
+
+input[type=text], input[type=password] {
+	background: none;
+	border: none;
+	background-color: white;
+	margin: .2rem 0;
+	outline: none;
+	padding: 5px;
+	font-family: 'Rubik', sans-serif;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+	outline: #207c76 solid 3px;
+}
+
+p {
+	margin: 0;
+}
+
+form div {
+	text-align: right;
+}
+
+h1 {
+	margin-top: 0;
+	font-family: "Chakra Petch", sans-serif;
+	font-weight: 300;
+	font-size: 2.2rem;
+}
+
+button {
+	border: none;
+	color: black;
+	text-align: center;
+	text-decoration: none;
+	padding: .5rem 1.2rem;
+	margin-top: 1rem;
+	font-family: 'Rubik', sans-serif;
+}
+
+button:hover {
+	outline: #207c76 solid 3px;
+}
+
+a, a:visited {
+	color: #ff5050;
+}
+
+a:hover {
+	color: #d97690;
+}
+
+.bold {
+	font-weight: 700;
 }

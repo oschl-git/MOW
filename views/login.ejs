@@ -5,27 +5,43 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/styles/authentication.css">
-	<title>Login</title>
+	<title>MOW / login</title>
 </head>
 <body>
-	<h1>Login</h1>
-	<% if (messages.error) { %>
-		<p><%= messages.error %></p>
-	<% } %>
-	<% if (registrationRedirect === 'regcomplete') { %>
-		<p>Successfully registered. Please, log in.</p>
-	<% } %>
-	<form action="/login" method="POST">
-		<div>
-			<label for="name">Username:</label>
-			<input type="text" id="username" name="username" required>
+	<main>
+		<div id="message-container">
+			<p id="message"><!--Message goes here--></p>
 		</div>
-		<div>
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="password" required>
+		<div id="authentication-container">
+			<h1>MOW / <span class="bold">login</span></h1>
+			<form action="/login" method="POST">
+				<div>
+					<label for="name">Username:</label>
+					<input type="text" id="username" name="username" required>
+				</div>
+				<div>
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="password" required>
+				</div>
+				<button type="submit">Login</button>
+			</form>
 		</div>
-		<button type="submit">Login</button>
-	</form>
-	<p>Not registered? <a href="/register">Register here.</a></p>
+		<div id="link-container">
+			<p>Not registered? <a href="/register">Register here.</a></p>
+		</div>
+	</main>
 </body>
+<script>
+	let messageContainer = document.querySelector('#message-container');
+	let messageText = document.querySelector('#message');
+
+	if ('<%=messages.error%>') {
+		messageText.textContent = '<%= messages.error %>'.replace('&#39;', '\'');
+		messageContainer.classList += 'error-message';
+	}
+	else if ('<%-registrationRedirect%>' === 'regcomplete') {
+		messageText.textContent = 'Successfully registered. Please, log in.';
+		messageContainer.classList += 'success-message';
+	}
+</script>
 </html>

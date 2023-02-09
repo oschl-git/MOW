@@ -5,29 +5,44 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/styles/authentication.css">
-	<title>Register</title>
+	<title>MOW / register</title>
 </head>
 <body>
-	<h1>Register</h1>
-	<% if (registerError != null) { 
-		if (registerError == 'duplicateuser') { %>
-			<p>A user with this username already exists. Please try a different one.</p>
-		<% }
-		else if (registerError == 'unknownerror') { %>
-			<p>Something went wrong. Please try again.</p>
-		<% }
-	} %>
-	<form action="/register" method="POST">
-		<div>
-			<label for="name">Username:</label>
-			<input type="text" id="username" name="username" required>
+	<main>
+		<div id="message-container">
+			<p id="message"><!--Message goes here--></p>
 		</div>
-		<div>
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="password" required>
+		<div id="authentication-container">
+			<h1>MOW / <span class="bold">register</span></h1>
+			<form action="/register" method="POST">
+				<div>
+					<label for="name">Username:</label>
+					<input type="text" id="username" name="username" required>
+				</div>
+				<div>
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="password" required>
+				</div>
+				<button type="submit">Register</button>
+			</form>
 		</div>
-		<button type="submit">Register</button>
-	</form>
-	<p>Already have an account? <a href="/login">Log in here.</a></p>
+		<div id="link-container">
+			<p>Already have an account? <a href="/login">Log in here.</a></p>
+		</div>
+	</main>
 </body>
+<script>
+	let messageContainer = document.querySelector('#message-container');
+	let messageText = document.querySelector('#message');
+
+	if ('<%=registerError%>') {
+		messageContainer.classList += 'error-message';
+		if ('<%=registerError%>' === 'duplicateuser') {
+			messageText.textContent = 'A user with this username already exists. Please, choose a different one.';
+		}
+		else if ('<%=registerError%>' === 'unknownerror') {
+			messageText.textContent = 'Something went wrong. Please try again.';
+		}
+	}
+</script>
 </html>
