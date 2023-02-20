@@ -1,0 +1,133 @@
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+main {
+	width: 85vw;
+	height: 75vh;
+	background-color: #131e26;
+	border: #207c76 solid 3px;
+	padding: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+p, h4, label {
+	margin: 15px 0;
+}
+
+h2 {
+	margin-top: 0;
+}
+
+h4, label:nth-of-type(1)  {
+	font-size: 1rem;
+	margin-left: 10px;
+}
+
+button {
+	border: none;
+	color: black;
+	text-align: center;
+	text-decoration: none;
+	padding: .5rem 1.2rem;
+	font-family: 'Rubik', sans-serif;
+}
+
+input[type=text] {
+	background: none;
+	border: none;
+	background-color: white;
+	outline: none;
+	padding: 5px;
+	font-family: 'Rubik', sans-serif;
+}
+
+input[type=text]:focus {
+	outline: #207c76 solid 3px;
+}
+
+button:hover {
+	outline: #207c76 solid 3px;
+}
+
+#set-container {
+    overflow-y: auto;
+	height: 55vh;
+}
+
+.learning-set {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	gap: 10px;
+	border: #207c76 solid 3px;
+	border-top: none;
+}
+
+.learning-set:nth-of-type(1) {
+	border: #207c76 solid 3px;
+}
+
+.learning-set div:nth-of-type(1), #add-item-form div:nth-of-type(1){
+	flex-grow: 1;
+	flex-basis: 0;
+}
+
+.learning-set div:nth-of-type(2), #add-item-form div:nth-of-type(2) {
+	flex-grow: 2;
+	flex-basis: 0;
+}
+
+.learning-set div:nth-of-type(3) {
+	flex-basis: 0;
+	flex-grow: 1;
+	text-align: right;
+	min-width: fit-content;
+}
+
+#add-item-form div:nth-of-type(3) {
+	flex-basis: 0;
+	flex-grow: 1;
+	text-align: right;
+	max-width: fit-content;
+}
+
+.learning-set div:nth-of-type(3) button, .learning-set div:nth-of-type(3) a {
+	margin: 0 10px;
+}
+
+#add-item-form {
+	display: flex;
+	align-items: center;
+	border: #a85062 solid 3px;
+}
+
+#add-item-form div {
+	display: flex;
+	align-items: center;
+}
+
+#add-item-form div:last-of-type {
+	justify-content: flex-end;
+}
+
+#add-item-form div input[type=text] {
+	flex-grow: 1;
+	font-size: 1rem;
+}
+
+#add-item-form div:nth-of-type(1) input[type=text] {
+	font-weight: 600;
+}
+
+#add-item-form button {
+	margin-right: 10px;
+}
+
+#add-item-form input[type=text] {
+	margin: 10px 20px;
+}

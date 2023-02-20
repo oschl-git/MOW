@@ -85,14 +85,6 @@ button:hover {
 	outline: #207c76 solid 3px;
 }
 
-a, a:visited {
-	color: #ff5050;
-}
-
-a:hover {
-	color: #d97690;
-}
-
 .bold {
 	font-weight: 700;
 }

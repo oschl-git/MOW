@@ -29,9 +29,6 @@ app.use(flash());
 app.use(session({
 	secret: process.env.SESSION_SECRET,
 	resave: false,
-	cookie: {
-		maxAge: 1000 * 60 * 60 * 24 * 365
-	},
 	saveUninitialized: false
 }));
 app.use(passport.initialize());
@@ -53,7 +50,8 @@ app.get('/:id/practice', checkAuthenticated, (req, res) => {
 app.get('/:id/edit', checkAuthenticated, (req, res) => {
 	res.render('edit.ejs', {
 		questions: JSON.stringify(learningSets.get(req.user.id)[req.params.id].questions),
-		setId: req.params.id
+		setId: req.params.id,
+		setName: learningSets.get(req.user.id)[req.params.id].name
 	});
 })
 

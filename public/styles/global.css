@@ -21,3 +21,16 @@ h1 {
 	font-weight: 300;
 	font-size: 2.2rem;
 }
+
+h2 {
+	font-family: 'Chakra Petch', sans-serif;
+	font-size: 1.8rem;
+}
+
+a, a:visited {
+	color: #ff5050;
+}
+
+a:hover {
+	color: #d97690;
+}

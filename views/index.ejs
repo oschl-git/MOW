@@ -5,46 +5,60 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/styles/global.css">
-	<title>Homepage</title>
+	<link rel="stylesheet" href="/styles/set-index.css">
+	<title>MOW / <%= name %>'s learning sets</title>
 </head>
 <body>
-	<h1>Hello, <%= name %>. You can find all your learning sets below.</h1>
+	<header>
+
+	</header>
 	<main>
+		<div>
+			<h2 id="main-heading">Hello, <%= name %>. You can find all your learning sets below.</h2>
+			<div id="set-container">
+	
+			</div>
+		</div>
+		<form action="/addset" method="POST" id="add-item-form">
+			<div>
+				<label for="question">Name:</label>
+				<input type="text" name="name" required>
+			</div>
+			<div>
+				<label for="answer">Description:</label>
+				<input type="text" name="description" required>
+			</div>
+			<div>
+				<button type="submit">Create set</button>
+			</div>
+		</form>
 	</main>
-	<br>
-	<form action="/addset" method="POST">
-		<label for="question">Name:</label>
-		<input type="text" name="name">
-		<label for="answer">Description:</label>
-		<input type="text" name="description">
-		<button type="submit">Submit</button>
-	</form>
-	<br>
-	<form action="/logout?_method=DELETE" method="POST">
-		<button type="submit">Logout!</button>
-	</form>
+	<footer>
+
+	</footer>
 </body>
 <script>
 	let jsonString = '<%- sets %>';
-	if (jsonString.length > 0) {
+	if (jsonString.length > 2) {
 		let sets = JSON.parse(jsonString);
 		let set = 0;
 		for (const i of sets) {
 			const learningSet = document.createElement('form');
 			learningSet.setAttribute('action', '/deleteset/' + set);
 			learningSet.setAttribute('method', 'POST');
+			learningSet.setAttribute('class', 'learning-set');
 			learningSet.innerHTML = (
-				'<p>' + i.name + ' >> ' + i.description + '</p>' +
-				'<a href=\"/' + set +'/edit\">Edit</a><a href=\"/' + set +'/practice\">Practice</button>' +
-				'<button type="submit">Delete</button>'
+				'<div><h4>' + i.name + '</h4></div><div><p>' + i.description + '</p></div>' +
+				'<div><a href=\"/' + set +'/edit\">Edit</a><a href=\"/' + set +'/practice\">Practice</a>' +
+				'<button type="submit">Delete</button></div>'
 			);
-			document.getElementsByTagName('main')[0].appendChild(learningSet);
+			document.querySelector('#set-container').appendChild(learningSet);
 			set++;
 		}
 	}
 	else {
-		document.getElementsByTagName('main')[0].innerText = 'It seems you don\'t have any learning sets.'
-			+ ' Start by creating one.';
+		document.getElementById('main-heading').innerText = 'Hello, <%= name %>. It seems you don\'t have'
+			+ ' any learning sets. Start by creating one.';
 	}
 </script>
 </html>
