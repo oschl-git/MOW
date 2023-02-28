@@ -44,7 +44,10 @@ app.get('/', checkAuthenticated, (req, res) => {
 })
 
 app.get('/:id/practice', checkAuthenticated, (req, res) => {
-	res.render('practice.ejs', {questions: JSON.stringify(learningSets.get(req.user.id)[req.params.id].questions) });
+	res.render('practice.ejs', {
+		questions: JSON.stringify(learningSets.get(req.user.id)[req.params.id].questions),
+		setName: learningSets.get(req.user.id)[req.params.id].name
+	});
 })
 
 app.get('/:id/edit', checkAuthenticated, (req, res) => {

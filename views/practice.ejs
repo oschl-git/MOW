@@ -5,9 +5,42 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/styles/global.css">
-	<title>Document</title>
+	<link rel="stylesheet" href="/styles/practice.css">
+	<title>MOW / practicing "<%- setName %></title>
 </head>
 <body>
-	<h1>Practicing learning set <%=questions%></h1>
+	<main>
+		<div id="begin-container">
+			<h1><%- setName %></h1>
+			<h2>Select method of practice:</h2>
+			<div>
+				<button id="practice-button-1">Get questions and select correct answers</button>
+				<button id="practice-button-2">Get questions and select correct questions</button>
+				<button id="practice-button-3">Get questions and input answers as text</button>
+				<button id="practice-button-4">Get answers and input questions as text</button>
+			</div>
+		</div>
+		<div id="practice-select-container">
+			<h2 id="question">Question</h2>
+			<div>
+				<button>Answer 1</button>
+				<button>Answer 2</button>
+				<button>Answer 3</button>
+			</div>
+			<h3>Score: 0</h3>
+		</div>
+		<div id="practice-write-container">
+			<h1>Practice write container</h1>
+		</div>
+		<div id="end-container">
+			<h1>End container</h1>
+		</div>
+	</main>
+
+	<script>
+		let questions = JSON.parse('<%-questions%>');
+		let setName = '<%- setName %>';
+	</script>
+	<script src="/scripts/practice.js"></script>
 </body>
 </html>

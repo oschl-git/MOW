@@ -54,12 +54,12 @@ button:hover {
 	outline: #207c76 solid 3px;
 }
 
-#set-container {
+#set-container, #question-container {
     overflow-y: auto;
 	height: 55vh;
 }
 
-.learning-set {
+.learning-set, .question {
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
@@ -68,25 +68,29 @@ button:hover {
 	border-top: none;
 }
 
-.learning-set:nth-of-type(1) {
+.learning-set:nth-of-type(1), .question:nth-of-type(1) {
 	border: #207c76 solid 3px;
 }
 
-.learning-set div:nth-of-type(1), #add-item-form div:nth-of-type(1){
+.learning-set div:nth-of-type(1), #add-item-form div:nth-of-type(1), .question div:nth-of-type(1) {
 	flex-grow: 1;
 	flex-basis: 0;
 }
 
-.learning-set div:nth-of-type(2), #add-item-form div:nth-of-type(2) {
+.learning-set div:nth-of-type(2), #add-item-form div:nth-of-type(2), .question div:nth-of-type(2) {
 	flex-grow: 2;
 	flex-basis: 0;
 }
 
-.learning-set div:nth-of-type(3) {
+.learning-set div:nth-of-type(3), .question div:nth-of-type(3) {
 	flex-basis: 0;
 	flex-grow: 1;
 	text-align: right;
 	min-width: fit-content;
+}
+
+.question button {
+	margin-right: 10px;
 }
 
 #add-item-form div:nth-of-type(3) {
@@ -96,7 +100,8 @@ button:hover {
 	max-width: fit-content;
 }
 
-.learning-set div:nth-of-type(3) button, .learning-set div:nth-of-type(3) a {
+.learning-set div:nth-of-type(3) button, .learning-set div:nth-of-type(3) a,
+.question div:nth-of-type(3) button, .question div:nth-of-type(3) a {
 	margin: 0 10px;
 }
 
