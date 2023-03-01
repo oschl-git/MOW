@@ -48,7 +48,7 @@ button:hover {
 }
 
 #practice-select-container {
-	justify-content: flex-start;
+	justify-content: center;
 	text-align: center;
 }
 
@@ -56,7 +56,6 @@ button:hover {
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
-	background-color: red;
 }
 
 #practice-select-container div button {
