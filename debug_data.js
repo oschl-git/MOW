@@ -44,4 +44,46 @@ function fillWithDebugData(users, learningSets) {
 		question: 'Platinum',
 		answer: 'Pt'
 	});
+
+
+	learningSets.get(1)[1].questions.push({
+		question: 'Karel Čapek',
+		answer: 'Válka s Mloky'
+	});
+	learningSets.get(1)[1].questions.push({
+		question: 'Karel Havlíček Borovský',
+		answer: 'Křest svatého Vladimíra'
+	});
+	learningSets.get(1)[1].questions.push({
+		question: 'Jan Neruda',
+		answer: 'Povídky Malostranské'
+	});
+	learningSets.get(1)[1].questions.push({
+		question: 'Franz Kafka',
+		answer: 'Proces'
+	});
+	learningSets.get(1)[1].questions.push({
+		question: 'Jiří Wolker',
+		answer: 'Těžká hodina'
+	});
+	learningSets.get(1)[1].questions.push({
+		question: 'Otokar Březina',
+		answer: 'Tajemné dálky'
+	});
+	learningSets.get(1)[1].questions.push({
+		question: 'Božena Němcová',
+		answer: 'Babička'
+	});
+	learningSets.get(1)[1].questions.push({
+		question: 'Alois Jirásek',
+		answer: 'Temno'
+	});
+	learningSets.get(1)[1].questions.push({
+		question: 'Václav Havel',
+		answer: 'Audience'
+	});
+	learningSets.get(1)[1].questions.push({
+		question: 'Alois Jirásek',
+		answer: 'Temno'
+	});
 }

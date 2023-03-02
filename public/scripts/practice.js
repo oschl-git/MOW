@@ -14,42 +14,48 @@ const answerButton2 = document.querySelector('#answer-button-2');
 const answerButton3 = document.querySelector('#answer-button-3');
 
 const selectQuestion = document.querySelector('#select-question');
+const selectScore = document.querySelector('#select-score');
+const selectCurrentQuestionCount = document.querySelector('#select-current-question-count');
+const selectTotalQuestionCount = document.querySelector('#select-total-question-count');
+
+const endScore = document.querySelector('#end-score');
+const endTotalQuestionCount = document.querySelector('#end-total-question-count');
 
 
 // Event listeners:
 // Begin buttons:
-practice1Button.addEventListener('click', (e) => {
+practice1Button.addEventListener('click', () => {
 	switchToView('practice-select');
 	reverseQuestions = false;
 	selectSetup();
 });
 
-practice2Button.addEventListener('click', (e) => {
+practice2Button.addEventListener('click', () => {
 	switchToView('practice-select');
 	reverseQuestions = true;
 	selectSetup();
 });
 
-practice3Button.addEventListener('click', (e) => {
+practice3Button.addEventListener('click', () => {
 	switchToView('practice-write');
 	reverseQuestions = false;
 });
 
-practice4Button.addEventListener('click', (e) => {
+practice4Button.addEventListener('click', () => {
 	switchToView('practice-write');
 	reverseQuestions = true;
 });
 
 // Practice answer buttons:
-answerButton1.addEventListener('click', (e) => {
+answerButton1.addEventListener('click', () => {
 	handleAnswerButton(1);
 });
 
-answerButton2.addEventListener('click', (e) => {
+answerButton2.addEventListener('click', () => {
 	handleAnswerButton(2);
 });
 
-answerButton3.addEventListener('click', (e) => {
+answerButton3.addEventListener('click', () => {
 	handleAnswerButton(3);
 });
 
@@ -80,6 +86,7 @@ function switchToView(newView) {
 }
 
 
+// Shuffles an array and returns it, doesn't affect provided array
 function shuffleArray(array) {
 	let newArray = [...array];
 	for (var i = newArray.length - 1; i > 0; i--) {
@@ -91,29 +98,70 @@ function shuffleArray(array) {
 	return newArray;
 }
 
-// Select practice:
+
+// Select practice initial setup
 function selectSetup() {
 	score = 0;
 	questionIndex = 0;
+	selectTotalQuestionCount.textContent = shuffledQuestions.length;
 	displaySelectQuestion(shuffledQuestions[questionIndex]);
-	questionIndex++;
 }
 
+
+// Reponds to pressing answer buttons
 function handleAnswerButton(button) {
-	displaySelectQuestion(shuffledQuestions[questionIndex]);
+	const answerButtons = [answerButton1, answerButton2, answerButton3];
+	
+	if (!reverseQuestions) {
+		if (answerButtons[button-1].textContent == shuffledQuestions[questionIndex].answer) score++;
+	}
+	else {
+		if (answerButtons[button-1].textContent == shuffledQuestions[questionIndex].question) score++;
+	}
+	
+	selectScore.textContent = score;
+
+	if (questionIndex + 1 >= shuffledQuestions.length) endPractice();
+
 	questionIndex++;
+	selectCurrentQuestionCount.textContent = questionIndex + 1;
+	displaySelectQuestion(shuffledQuestions[questionIndex]);
 }
 
+
+// Displays a single select question
 function displaySelectQuestion(question) {
-	selectQuestion.textContent = question.question;
+	selectQuestion.textContent = !reverseQuestions ? question.question : question.answer;
 	let answerButtons = shuffleArray([answerButton1, answerButton2, answerButton3]);
-	answerButtons[0].textContent = question.answer;
+	answerButtons[0].textContent = !reverseQuestions ? question.answer : question.question;
 	answerButtons.shift();
 	for (const button of answerButtons) {
 		let answer;
+		let fakeAnswerIsCorrect = false;
+		
 		do {
-			answer = shuffledQuestions[Math.floor(Math.random() * shuffledQuestions.length)].answer;
-		} while (answer == question.answer);
+			let questionObject = 
+					shuffledQuestions[Math.floor(Math.random() * shuffledQuestions.length)];
+			answer = !reverseQuestions ? questionObject.answer : questionObject.question;
+			
+			if (!reverseQuestions) {
+				fakeAnswerIsCorrect = (questionObject.answer == question.answer);
+			}
+			else {
+				fakeAnswerIsCorrect = (questionObject.question == question.question);
+			}
+		} while (fakeAnswerIsCorrect && 
+				answerButtons[0].textContent != answerButtons[1].textContent);
+		
 		button.textContent = answer;
 	}
+}
+
+
+
+function endPractice() {
+	endScore.textContent = score;
+	endTotalQuestionCount.textContent = shuffledQuestions.length;
+
+	switchToView('end');
 }
