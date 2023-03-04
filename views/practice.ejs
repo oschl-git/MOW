@@ -10,6 +10,7 @@
 </head>
 <body>
 	<main>
+
 		<div id="begin-container">
 			<h1><%- setName %></h1>
 			<h2>Select method of practice:</h2>
@@ -20,6 +21,7 @@
 				<button id="practice-button-4">Get answers and input questions as text</button>
 			</div>
 		</div>
+
 		<div id="practice-select-container">
 			<h4>
 				Question:
@@ -34,9 +36,22 @@
 			</div>
 			<h3>Score: <span id="select-score">0</span></h3>
 		</div>
+
 		<div id="practice-write-container">
-			<h1>Practice write container</h1>
+			<h4>
+				Question:
+				<span id="write-current-question-count">1</span> /
+				<span id="write-total-question-count">X</span>
+			</h4>
+			<h2 id="write-question">Question</h2>
+			<form method="post", id="answer-form">
+				<label for="answer">Answer:</label>
+				<input type="text" name="answer" id="answer-text-field">
+				<button type="submit">Sumbit</button>
+			</form>
+			<h3>Score: <span id="write-score">0</span></h3>
 		</div>
+
 		<div id="end-container">
 			<h2>Practice ended!</h2>
 			<h3>

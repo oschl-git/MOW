@@ -9,14 +9,22 @@ const practiceSelectContainer = document.querySelector('#practice-select-contain
 const practiceWriteContainer = document.querySelector('#practice-write-container');
 const endContainer = document.querySelector('#end-container');
 
-const answerButton1 = document.querySelector('#answer-button-1');
-const answerButton2 = document.querySelector('#answer-button-2');
-const answerButton3 = document.querySelector('#answer-button-3');
-
 const selectQuestion = document.querySelector('#select-question');
 const selectScore = document.querySelector('#select-score');
 const selectCurrentQuestionCount = document.querySelector('#select-current-question-count');
 const selectTotalQuestionCount = document.querySelector('#select-total-question-count');
+
+const answerButton1 = document.querySelector('#answer-button-1');
+const answerButton2 = document.querySelector('#answer-button-2');
+const answerButton3 = document.querySelector('#answer-button-3');
+
+const writeQuestion = document.querySelector('#write-question');
+const writeScore = document.querySelector('#write-score');
+const writeCurrentQuestionCount = document.querySelector('#write-current-question-count');
+const writeTotalQuestionCount = document.querySelector('#write-total-question-count');
+
+const answerForm = document.querySelector('#answer-form');
+const answerTextField = document.querySelector('#answer-text-field');
 
 const endScore = document.querySelector('#end-score');
 const endTotalQuestionCount = document.querySelector('#end-total-question-count');
@@ -39,11 +47,13 @@ practice2Button.addEventListener('click', () => {
 practice3Button.addEventListener('click', () => {
 	switchToView('practice-write');
 	reverseQuestions = false;
+	writeSetup();
 });
 
 practice4Button.addEventListener('click', () => {
 	switchToView('practice-write');
 	reverseQuestions = true;
+	writeSetup();
 });
 
 // Practice answer buttons:
@@ -58,6 +68,18 @@ answerButton2.addEventListener('click', () => {
 answerButton3.addEventListener('click', () => {
 	handleAnswerButton(3);
 });
+
+// Text answer form:
+answerForm.addEventListener('submit', (e) => {
+	e.preventDefault();
+	let formData = new FormData(answerForm)
+	let answer = formData.get('answer');
+
+	if (answer == '') return;
+	
+	answerTextField.value = '';
+	handleAnswerForm(answer);
+})
 
 
 // General variables:
@@ -106,7 +128,6 @@ function selectSetup() {
 	selectTotalQuestionCount.textContent = shuffledQuestions.length;
 	displaySelectQuestion(shuffledQuestions[questionIndex]);
 }
-
 
 // Reponds to pressing answer buttons
 function handleAnswerButton(button) {
@@ -158,7 +179,41 @@ function displaySelectQuestion(question) {
 }
 
 
+// Write practice initial setup
+function writeSetup() {
+	score = 0;
+	questionIndex = 0;
+	writeTotalQuestionCount.textContent = shuffledQuestions.length;
+	displayWriteQuestion(shuffledQuestions[questionIndex]);
+}
 
+
+// Displays a single write question
+function displayWriteQuestion(question) {
+	writeQuestion.textContent = !reverseQuestions ? question.question : question.answer;
+}
+
+
+function handleAnswerForm(answer) {
+	if (!reverseQuestions) {
+		if (answer.toLowerCase() === shuffledQuestions[questionIndex].answer.toLowerCase()) score++;
+	}
+	else {
+		if (answer.toLowerCase() === shuffledQuestions[questionIndex].question.toLowerCase()) 
+			score++;
+	}
+		
+	writeScore.textContent = score;
+
+	if (questionIndex + 1 >= shuffledQuestions.length) endPractice();
+
+	questionIndex++;
+	writeCurrentQuestionCount.textContent = questionIndex + 1;
+	displayWriteQuestion(shuffledQuestions[questionIndex]);
+}
+
+
+// Ends practice
 function endPractice() {
 	endScore.textContent = score;
 	endTotalQuestionCount.textContent = shuffledQuestions.length;
