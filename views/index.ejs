@@ -10,7 +10,12 @@
 </head>
 <body>
 	<header>
-
+		<h2>MOW / <span class="bold">learning sets</span></h2>
+		<nav>
+			<form action="/logout?_method=DELETE" method="POST">
+				<button type="submit">Log out</button>
+			</form>
+		</nav>
 	</header>
 	<main>
 		<div>
@@ -47,11 +52,20 @@
 			learningSet.setAttribute('action', '/deleteset/' + set);
 			learningSet.setAttribute('method', 'POST');
 			learningSet.setAttribute('class', 'learning-set');
-			learningSet.innerHTML = (
+			let htmlContent = (
 				'<div><h4>' + i.name + '</h4></div><div><p>' + i.description + '</p></div>' +
-				'<div><a href=\"/' + set +'/edit\">Edit</a><a href=\"/' + set +'/practice\">Practice</a>' +
-				'<button type="submit">Delete</button></div>'
+				'<div><a href=\"/' + set +'/edit\">Edit</a>'
 			);
+			
+			if (i.questions.length >= 3) {
+				htmlContent += (
+					'<a href=\"/' + set +'/practice\">Practice</a>'
+				);
+			}
+
+			htmlContent += '<button type="submit">Delete</button></div>';
+
+			learningSet.innerHTML = htmlContent;
 			document.querySelector('#set-container').appendChild(learningSet);
 			set++;
 		}

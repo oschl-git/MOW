@@ -1,12 +1,13 @@
 body {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 }
 
 main {
-	width: 85vw;
-	height: 75vh;
+	width: 68rem;
+	height: 32rem;
 	background-color: #131e26;
 	border: #207c76 solid 3px;
 	padding: 40px;
@@ -56,7 +57,7 @@ button:hover {
 
 #set-container, #question-container {
     overflow-y: auto;
-	height: 55vh;
+	height: 23rem;
 }
 
 .learning-set, .question {

@@ -1,14 +1,27 @@
 body {
 	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+
+main {
+	width: 100%;
+	height: calc(100% - 3rem);
+	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-main {
+main .content-container {
+	width: 68rem;
+	height: 32rem;
 	background-color: #131e26;
 	border: #207c76 solid 3px;
-	width: 65rem;
-	height: 35rem;
+	padding: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 button {
@@ -71,4 +84,25 @@ button:hover {
 	text-align: center;
 	justify-content: center;
 	align-items: center;
+}
+
+input[type=text] {
+	background: none;
+	border: none;
+	background-color: white;
+	outline: none;
+	padding: .5rem .5rem;
+	width: 20rem;
+	font-family: 'Rubik', sans-serif;
+}
+
+input[type=text]:focus {
+	outline: #207c76 solid 3px;
+}
+
+#answer-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
 }

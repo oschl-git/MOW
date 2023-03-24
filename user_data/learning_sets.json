@@ -1,36 +1,70 @@
 {
-	"1679229274373": [
+	"1679602249385": [
 		{
 			"name": "Czech literary authors",
-			"description": "A set containing literary authors and their work.",
+			"description": "One book per author.",
 			"questions": [
 				{
-					"question": "Václav Havel",
-					"answer": "Audience"
+					"question": "Válka s Mloky",
+					"answer": "Karel Čapek"
 				},
 				{
-					"question": "John Steinback",
-					"answer": "Hrozny hněvu"
+					"question": "Křest svatého Vladimíra",
+					"answer": "Karel Havlíček Borovský "
 				},
 				{
-					"question": "Karel Čapek",
-					"answer": "Válka s Mloky"
+					"question": "Povídky malostranské",
+					"answer": "Jan Neruda"
 				},
 				{
-					"question": "Jonáš",
-					"answer": "Taky něco napsal"
+					"question": "Proces",
+					"answer": "Franz Kafka"
 				},
 				{
-					"question": "asdhk",
-					"answer": "adskjha"
+					"question": "Těžká hodina",
+					"answer": "Jiří Wolker"
 				},
 				{
-					"question": "damn",
-					"answer": "zamn"
+					"question": "Tajemné dálky",
+					"answer": "Otokar Březina"
 				},
 				{
-					"question": "damn ad",
-					"answer": "dam"
+					"question": "Babička",
+					"answer": "Božena Němcová"
+				},
+				{
+					"question": "Temno",
+					"answer": "Alois Jirásek"
+				}
+			]
+		},
+		{
+			"name": "Periodic table elements",
+			"description": "A set with elements from the periodic table.",
+			"questions": [
+				{
+					"question": "H",
+					"answer": "Hydrogen"
+				},
+				{
+					"question": "Li",
+					"answer": "Lithium"
+				},
+				{
+					"question": "K",
+					"answer": "Potassium"
+				},
+				{
+					"question": "Sc",
+					"answer": "Scandium"
+				},
+				{
+					"question": "P",
+					"answer": "Phosphorus"
+				},
+				{
+					"question": "Pt",
+					"answer": "Platinum"
 				}
 			]
 		}

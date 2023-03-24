@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config();
 }
 
+const port = 3000;
+
 // Dependencies:
 const express = require('express');
 const app = express();
@@ -12,7 +14,6 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const fs = require('fs');
 const path = require('path');
-// const debugData = require('./debug_data');
 
 const initializePassport = require('./passport-config');
 initializePassport(
@@ -43,8 +44,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
-
-// debugData.fillWithDebugData(users, learningSets);
 
 // Routing:
 app.get('/', checkAuthenticated, (req, res) => {

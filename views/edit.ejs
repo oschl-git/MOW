@@ -10,7 +10,15 @@
 </head>
 <body>
 	<header>
-
+		<h2>MOW / <span class="bold"><%- setName %></span></h2>
+		<nav>
+			<form action="/" method="GET">
+				<button type="submit">< Go back</button>
+			</form>
+			<form action="/logout?_method=DELETE" method="POST">
+				<button type="submit">Log out</button>
+			</form>
+		</nav>
 	</header>
 	<main>
 		<div>

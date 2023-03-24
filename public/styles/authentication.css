@@ -84,7 +84,3 @@ button {
 button:hover {
 	outline: #207c76 solid 3px;
 }
-
-.bold {
-	font-weight: 700;
-}

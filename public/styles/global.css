@@ -36,3 +36,33 @@ a, a:visited {
 a:hover {
 	color: #d97690;
 }
+
+.bold {
+	font-weight: 700;
+}
+
+/*HEADER*/
+header {
+	width: 100%;
+	height: 3rem;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: #207c76 solid 3px;
+	background-color: #131e26;
+	align-items: center;
+}
+
+header h2 {
+	margin: 0;
+	margin-left: 1rem;
+	font-weight: 300;
+}
+
+header nav {
+	display: flex;
+	align-items: center;
+}
+
+header nav button {
+	margin-right: 1rem;
+}

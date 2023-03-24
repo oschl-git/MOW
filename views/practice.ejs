@@ -9,57 +9,69 @@
 	<title>MOW / practicing "<%- setName %></title>
 </head>
 <body>
-	<main>
-
-		<div id="begin-container">
-			<h1><%- setName %></h1>
-			<h2>Select method of practice:</h2>
-			<div>
-				<button id="practice-button-1">Get questions and select correct answers</button>
-				<button id="practice-button-2">Get questions and select correct questions</button>
-				<button id="practice-button-3">Get questions and input answers as text</button>
-				<button id="practice-button-4">Get answers and input questions as text</button>
-			</div>
-		</div>
-
-		<div id="practice-select-container">
-			<h4>
-				Question:
-				<span id="select-current-question-count">1</span> /
-				<span id="select-total-question-count">X</span>
-			</h4>
-			<h2 id="select-question">Question</h2>
-			<div>
-				<button id="answer-button-1">Answer 1</button>
-				<button id="answer-button-2">Answer 2</button>
-				<button id="answer-button-3">Answer 3</button>
-			</div>
-			<h3>Score: <span id="select-score">0</span></h3>
-		</div>
-
-		<div id="practice-write-container">
-			<h4>
-				Question:
-				<span id="write-current-question-count">1</span> /
-				<span id="write-total-question-count">X</span>
-			</h4>
-			<h2 id="write-question">Question</h2>
-			<form method="post", id="answer-form">
-				<label for="answer">Answer:</label>
-				<input type="text" name="answer" id="answer-text-field">
-				<button type="submit">Sumbit</button>
+	<header>
+		<h2>MOW / <span class="bold"><%- setName %></span></h2>
+		<nav>
+			<form action="/" method="GET">
+				<button type="submit">< Go back</button>
 			</form>
-			<h3>Score: <span id="write-score">0</span></h3>
-		</div>
-
-		<div id="end-container">
-			<h2>Practice ended!</h2>
-			<h3>
-				Score:
-				<span id="end-score">X</span> /
-				<span id="end-total-question-count">X</span>
-			</h3>
-			<button onClick="document.location.reload()">Try again!</button>
+			<form action="/logout?_method=DELETE" method="POST">
+				<button type="submit">Log out</button>
+			</form>
+		</nav>
+	</header>
+	<main>
+		<div class="content-container">
+			<div id="begin-container">
+				<h1><%- setName %></h1>
+				<h2>Select method of practice:</h2>
+				<div>
+					<button id="practice-button-1">Get questions and select correct answers</button>
+					<button id="practice-button-2">Get questions and select correct questions</button>
+					<button id="practice-button-3">Get questions and input answers as text</button>
+					<button id="practice-button-4">Get answers and input questions as text</button>
+				</div>
+			</div>
+	
+			<div id="practice-select-container">
+				<h4>
+					Question:
+					<span id="select-current-question-count">1</span> /
+					<span id="select-total-question-count">X</span>
+				</h4>
+				<h2 id="select-question">Question</h2>
+				<div>
+					<button id="answer-button-1">Answer 1</button>
+					<button id="answer-button-2">Answer 2</button>
+					<button id="answer-button-3">Answer 3</button>
+				</div>
+				<h3>Score: <span id="select-score">0</span></h3>
+			</div>
+	
+			<div id="practice-write-container">
+				<h4>
+					Question:
+					<span id="write-current-question-count">1</span> /
+					<span id="write-total-question-count">X</span>
+				</h4>
+				<h2 id="write-question">Question</h2>
+				<form method="post", id="answer-form">
+					<label for="answer">Answer:</label>
+					<input type="text" name="answer" id="answer-text-field">
+					<button type="submit">Sumbit</button>
+				</form>
+				<h3>Score: <span id="write-score">0</span></h3>
+			</div>
+	
+			<div id="end-container">
+				<h2>Practice ended!</h2>
+				<h3>
+					Score:
+					<span id="end-score">X</span> /
+					<span id="end-total-question-count">X</span>
+				</h3>
+				<button onClick="document.location.reload()">Try again!</button>
+			</div>
 		</div>
 	</main>
 
